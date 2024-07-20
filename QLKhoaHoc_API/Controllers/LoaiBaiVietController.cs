@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QLKhoaHoc_API.Paginations;
 using QLKhoaHoc_API.PayLoads.DataRequests;
+using QLKhoaHoc_API.Services.Implements;
 using QLKhoaHoc_API.Services.Interfaces;
 using System.Data;
 
@@ -24,6 +25,12 @@ namespace QLKhoaHoc_API.Controllers
             return Ok(loaiBaiVietServices.GetDsLoaiBaiViet(keyword, pagination));
         }
 
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            return Ok(loaiBaiVietServices.GetAll());
+        }
+
         [HttpPost("ThemLoaiBaiViet")]
         [Authorize(Roles = "Admin")]
         public IActionResult ThemLoaiBaiViet(Request_LoaiBaiViet request)
@@ -40,9 +47,9 @@ namespace QLKhoaHoc_API.Controllers
 
         [HttpDelete("XoaLoaiBaiViet")]
         [Authorize(Roles = "Admin")]
-        public IActionResult XoaLoaiBaiViet(int id)
+        public IActionResult XoaLoaiBaiViet(int lbvID)
         {
-            return Ok(loaiBaiVietServices.XoaLoaiBaiViet(id));
+            return Ok(loaiBaiVietServices.XoaLoaiBaiViet(lbvID));
         }
     }
 }

@@ -22,6 +22,12 @@ namespace QLKhoaHoc_API.Services.Implements
             this.converter = converter;
         }
 
+        public IQueryable<DataResponse_BaiViet> GetAll()
+        {
+            var result = dbContext.BaiViets.Select(x => converter.EntityToDTO(x));
+            return result;
+        }
+
         public PageResult<BaiViet> GetDsBaiViet(string? keyword, Pagination pagination)
         {
             var lstBaiViet = dbContext.BaiViets.AsQueryable();
@@ -34,16 +40,17 @@ namespace QLKhoaHoc_API.Services.Implements
             return new PageResult<BaiViet>(pagination, result);
         }
 
-        public ResponseObject<DataResponse_BaiViet> SuaBaiViet(Request_BaiViet request, int id)
+        public ResponseObject<DataResponse_BaiViet> SuaBaiViet(Request_BaiViet request)
         {
-            if(dbContext.BaiViets.Any(x => x.Id == id))
+            var bv = dbContext.BaiViets.SingleOrDefault(x => x.TenBaiViet == request.TenBaiViet);
+            if(bv != null)
             {
-                BaiViet bv = dbContext.BaiViets.Find(id);
                 bv.TenBaiViet = request.TenBaiViet;
                 bv.TenTacGia = request.TenTacGia;
                 bv.NoiDung = request.NoiDung;
                 bv.NoiDungNgan = request.NoiDungNgan;
                 bv.HinhAnh = request.HinhAnh;
+                bv.ChuDeId = request.chuDeId;
                 dbContext.Update(bv);
                 dbContext.SaveChanges();
                 return responseObject.ResponseSuccess("Cập nhật bài viết thành công", converter.EntityToDTO(bv));
@@ -51,7 +58,7 @@ namespace QLKhoaHoc_API.Services.Implements
             return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Bài viết không tồn tại", null);
         }
 
-        public ResponseObject<DataResponse_BaiViet> ThemBaiViet(Request_BaiViet request, int cdId)
+        public ResponseObject<DataResponse_BaiViet> ThemBaiViet(Request_BaiViet request)
         {
             if (dbContext.BaiViets.Any(x => x.TenBaiViet == request.TenBaiViet))
             {
@@ -64,18 +71,18 @@ namespace QLKhoaHoc_API.Services.Implements
             bv.NoiDung = request.NoiDung;
             bv.NoiDungNgan = request.NoiDungNgan;
             bv.HinhAnh = request.HinhAnh;
-            bv.TaiKhoanId = dbContext.TaiKhoans.SingleOrDefault(x => x.Id == request.TaiKhoanId).Id;
-            bv.ChuDeId = cdId;
+            bv.TaiKhoanId = 1;
+            bv.ChuDeId = request.chuDeId;
             dbContext.BaiViets.Add(bv);
             dbContext.SaveChanges();
             return responseObject.ResponseSuccess("Thêm bài viết thành công", converter.EntityToDTO(bv));
         }
 
-        public ResponseObject<DataResponse_BaiViet> XoaBaiViet(int id)
+        public ResponseObject<DataResponse_BaiViet> XoaBaiViet(int tenID)
         {
-            if(dbContext.BaiViets.Any(x => x.Id == id))
+            var bv = dbContext.BaiViets.SingleOrDefault(x => x.Id == tenID);
+            if(bv != null)
             {
-                var bv = dbContext.BaiViets.Find(id);
                 dbContext.Remove(bv);
                 dbContext.SaveChanges();
                 return responseObject.ResponseSuccess("Xóa bài viết thành công", null);

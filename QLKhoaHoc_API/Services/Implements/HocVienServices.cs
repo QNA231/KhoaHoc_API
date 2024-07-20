@@ -36,9 +36,10 @@ namespace QLKhoaHoc_API.Services.Implements
 
         public ResponseObject<DataResponse_HocVien> SuaHocVien(Request_HocVien request, int id)
         {
-            if(dbContext.HocViens.Any(x => x.Id == id))
+            var dk = dbContext.DangKyHocs.SingleOrDefault(x => x.TaiKhoanId == id).HocVIenId;
+            var hv = dbContext.HocViens.FirstOrDefault(x => x.Id == dk);
+            if(hv != null)
             {
-                var hv = dbContext.HocViens.Find(id);
                 var sdt = dbContext.HocViens.FirstOrDefault(x => x.SDT == request.SDT);
                 var mail = dbContext.HocViens.FirstOrDefault(x => x.Email == request.Email);
                 hv.HinhAnh = request.HinhAnh;
@@ -71,7 +72,8 @@ namespace QLKhoaHoc_API.Services.Implements
             var sdt = dbContext.HocViens.FirstOrDefault(x => x.SDT == request.SDT);
             var mail = dbContext.HocViens.FirstOrDefault(x => x.Email == request.Email);
             hv.HinhAnh = request.HinhAnh;
-            hv.HoTen = DinhDangHoTen(request.HoTen);
+            //hv.HoTen = DinhDangHoTen(request.HoTen);
+            hv.HoTen = request.HoTen;
             hv.NgaySinh = request.NgaySinh;
             hv.SDT = request.SDT;
             hv.Email = request.Email;
@@ -79,14 +81,14 @@ namespace QLKhoaHoc_API.Services.Implements
             hv.QuanHuyen = request.QuanHuyen;
             hv.PhuongXa = request.PhuongXa;
             hv.SoNha = request.SoNha;
-            if(sdt != null)
-            {
-                return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Số điện thoại đã tồn tại", null);
-            }
-            if (mail != null)
-            {
-                return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Email đã tồn tại", null);
-            }
+            //if(sdt != null)
+            //{
+            //    return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Số điện thoại đã tồn tại", null);
+            //}
+            //if (mail != null)
+            //{
+            //    return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Email đã tồn tại", null);
+            //}
             dbContext.HocViens.Add(hv);
             dbContext.SaveChanges();
             return responseObject.ResponseSuccess("Thêm học viên thành công", converter.EntityTODTO(hv));
@@ -109,11 +111,11 @@ namespace QLKhoaHoc_API.Services.Implements
 
         public ResponseObject<DataResponse_HocVien> XoaHocVien(int hvId)
         {
-            if(dbContext.HocViens.Any(x => x.Id == hvId))
+            if (dbContext.HocViens.Any(x => x.Id == hvId))
             {
                 var dk = dbContext.DangKyHocs.SingleOrDefault(x => x.HocVIenId == hvId);
                 var hv = dbContext.HocViens.Find(hvId);
-                if(dk != null)
+                if (dk != null)
                 {
                     var soHocVien = dbContext.KhoaHocs.SingleOrDefault(x => x.Id == dk.KhoaHocId);
                     if (soHocVien != null)
@@ -125,12 +127,17 @@ namespace QLKhoaHoc_API.Services.Implements
                     dbContext.Remove(dk);
                     dbContext.SaveChanges();
                 }
-
                 dbContext.Remove(hv);
                 dbContext.SaveChanges();
                 return responseObject.ResponseSuccess("Xóa học viên thành công", null);
             }
             return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Học viên không tồn tại", null);
+        }
+
+        public IQueryable<DataResponse_HocVien> GetAll()
+        {
+            var result = dbContext.HocViens.Select(x => converter.EntityTODTO(x));
+            return result;
         }
     }
 }

@@ -23,11 +23,18 @@ namespace QLKhoaHoc_API.Controllers
         {
             return Ok(_khoaHocServices.PhanTrangKhoaHoc(keyword, pagination));
         }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            return Ok(_khoaHocServices.GetAll());
+        }
+
         [HttpPost("ThemKhoaHoc")]
         [Authorize(Roles = "Admin")]
-        public IActionResult ThemKhoaHoc(Request_KhoaHoc request, int lkhId)
+        public IActionResult ThemKhoaHoc(Request_KhoaHoc request)
         {
-            return Ok(_khoaHocServices.ThemKhoaHoc(request, lkhId));
+            return Ok(_khoaHocServices.ThemKhoaHoc(request));
         }
 
         [HttpPut("CapNhatKhoaHoc")]

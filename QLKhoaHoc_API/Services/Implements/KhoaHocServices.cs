@@ -23,6 +23,12 @@ namespace QLKhoaHoc_API.Services.Implements
             this.converter = converter;
         }
 
+        public IQueryable<DataResponse_KhoaHoc> GetAll()
+        {
+            var result = dbContext.KhoaHocs.Select(x => converter.EntityToDTO(x));
+            return result;
+        }
+
         public ResponseObject<DataResponse_KhoaHoc> HienThiDanhSachKhoaHoc()
         {
             throw new NotImplementedException();
@@ -59,14 +65,14 @@ namespace QLKhoaHoc_API.Services.Implements
             return responseObject.ResponseError(StatusCodes.Status404NotFound, "Khóa học không tồn tại", null);
         }
 
-        public ResponseObject<DataResponse_KhoaHoc> ThemKhoaHoc(Request_KhoaHoc request, int lkhId)
+        public ResponseObject<DataResponse_KhoaHoc> ThemKhoaHoc(Request_KhoaHoc request)
         {
-            if(dbContext.LoaiKhoaHocs.Any(x => x.Id == lkhId))
-            {
+            //if(dbContext.LoaiKhoaHocs.Any(x => x.Id == lkhId))
+            //{
                 if(!dbContext.KhoaHocs.Any(x => x.TenKhoaHoc == request.TenKhoaHoc))
                 {
                     KhoaHoc kh = new KhoaHoc();
-                    kh.LoaiKhoaHocId = lkhId;
+                    kh.LoaiKhoaHocId = request.lkhId;
                     kh.TenKhoaHoc = request.TenKhoaHoc;
                     kh.HocPhi = request.HocPhi;
                     kh.SoHocVien = 0;
@@ -83,18 +89,21 @@ namespace QLKhoaHoc_API.Services.Implements
                 {
                     return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Khóa học đã tồn tại", null);
                 }
-            }
-            return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Thêm khóa học thất bại", null);
+            //}
+            //return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Thêm khóa học thất bại", null);
         }
 
         public ResponseObject<DataResponse_KhoaHoc> XoaKhoaHoc(int khId)
         {
-            if(dbContext.KhoaHocs.Any(x => x.Id == khId))
+            if (dbContext.KhoaHocs.Any(x => x.Id == khId))
             {
                 var kh = dbContext.KhoaHocs.Find(khId);
-                dbContext.Remove(kh);
-                dbContext.SaveChanges();
-                return responseObject.ResponseSuccess("Xóa khóa học thành công", null);
+                if (kh != null)
+                {
+                    dbContext.Remove(kh);
+                    dbContext.SaveChanges();
+                    return responseObject.ResponseSuccess("Xóa khóa học thành công", null);
+                }
             }
             return responseObject.ResponseError(StatusCodes.Status404NotFound, "Khóa học không tồn tại", null);
         }

@@ -8,9 +8,10 @@ namespace QLKhoaHoc_API.Services.Interfaces
 {
     public interface IBaiVietServices
     {
-        ResponseObject<DataResponse_BaiViet> ThemBaiViet(Request_BaiViet request, int cdId);
-        ResponseObject<DataResponse_BaiViet> SuaBaiViet(Request_BaiViet request, int id);
-        ResponseObject<DataResponse_BaiViet> XoaBaiViet(int id);
+        ResponseObject<DataResponse_BaiViet> ThemBaiViet(Request_BaiViet request);
+        ResponseObject<DataResponse_BaiViet> SuaBaiViet(Request_BaiViet request);
+        ResponseObject<DataResponse_BaiViet> XoaBaiViet(int tenId);
         PageResult<BaiViet> GetDsBaiViet(string? keyword, Pagination pagination);
+        IQueryable<DataResponse_BaiViet> GetAll();
     }
 }

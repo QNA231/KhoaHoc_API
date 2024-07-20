@@ -11,5 +11,6 @@ namespace QLKhoaHoc_API.PayLoads.DataRequests
         public double HocPhi { get; set; }
         public int SoLuongMon { get; set; }
         public string HinhAnh { get; set; }
+        public int lkhId { get; set; }
     }
 }

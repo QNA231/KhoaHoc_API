@@ -177,6 +177,10 @@ namespace QLKhoaHoc_API.Services.Implements
             {
                 return responseTokenObject.ResponseError(StatusCodes.Status400BadRequest, "Vui lòng điền đủ thông tin", null);
             }
+            if(user == null)
+            {
+                return responseTokenObject.ResponseError(StatusCodes.Status400BadRequest, "Tài khoản không đúng", null);
+            }
             bool checkPass = BcryptNet.Verify(request.MatKhau, user.MatKhau);
             if (!checkPass)
             {

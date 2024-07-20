@@ -24,11 +24,18 @@ namespace QLKhoaHoc_API.Controllers
         {
             return Ok(chuDeServices.PhanTrangChuDe(keyword, pagination));
         }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            return Ok(chuDeServices.GetAll());
+        }
+
         [HttpPost("ThemChuDe")]
         [Authorize(Roles = "Admin")]
-        public IActionResult ThemChuDe(Request_ChuDe request, int lbvId)
+        public IActionResult ThemChuDe(Request_ChuDe request)
         {
-            return Ok(chuDeServices.ThemChuDe(request, lbvId));
+            return Ok(chuDeServices.ThemChuDe(request));
         }
 
         [HttpPut("CapNhatChuDe")]
@@ -40,9 +47,9 @@ namespace QLKhoaHoc_API.Controllers
 
         [HttpDelete("XoaChuDe")]
         [Authorize(Roles = "Admin")]
-        public IActionResult XoaChuDe(int id)
+        public IActionResult XoaChuDe(int cdId)
         {
-            return Ok(chuDeServices.XoaChuDe(id));
+            return Ok(chuDeServices.XoaChuDe(cdId));
         }
     }
 }

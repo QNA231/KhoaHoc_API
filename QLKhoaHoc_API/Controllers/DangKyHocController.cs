@@ -25,6 +25,12 @@ namespace QLKhoaHoc_API.Controllers
             return Ok(dangKyHocServices.PhanTrangDangKy(pagination));
         }
 
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            return Ok(dangKyHocServices.GetAll());
+        }
+
         [HttpPost("ThemDangKyHoc")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult ThemDangKyHoc([FromBody] Request_ThemDangKyHoc request)

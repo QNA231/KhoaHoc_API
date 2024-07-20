@@ -58,9 +58,9 @@ namespace QLKhoaHoc_API.Services.Implements
             lbv.TenLoaiBaiViet = request.TenLoaiBaiViet;
             dbContext.Add(lbv);
             dbContext.SaveChanges();
-            lbv.chuDes = ThemListChuDe(lbv.Id, request.ThemChuDes);
-            dbContext.Update(lbv);
-            dbContext.SaveChanges();
+            //lbv.chuDes = ThemListChuDe(lbv.Id, request.ThemChuDes);
+            //dbContext.Update(lbv);
+            //dbContext.SaveChanges();
             return responseObject.ResponseSuccess("Thêm loại bài viết thành công", converter.EntityToDTO(lbv));
         }
         private List<ChuDe> ThemListChuDe(int lbvId, List<Request_ChuDe> requests)
@@ -83,17 +83,18 @@ namespace QLKhoaHoc_API.Services.Implements
             return list;
         }
 
-        public ResponseObject<DataResponse_LoaiBaiViet> XoaLoaiBaiViet(int id)
+        public ResponseObject<DataResponse_LoaiBaiViet> XoaLoaiBaiViet(int lbvID)
         {
-            var lbv = dbContext.LoaiBaiViets.Find(id);
-            var cd = dbContext.ChuDes.SingleOrDefault(x => x.LoaiBaiVietId == id);
+            var lbv = dbContext.LoaiBaiViets.SingleOrDefault(x => x.Id == lbvID);
+            var cd = dbContext.ChuDes.SingleOrDefault(x => x.LoaiBaiVietId == lbvID);
             var bv = dbContext.BaiViets.SingleOrDefault(x => x.ChuDeId == cd.Id);
-            if(bv == null && cd == null)
+            if (bv == null && cd == null)
             {
                 dbContext.Remove(lbv);
                 dbContext.SaveChanges();
                 return responseObject.ResponseSuccess("Xóa loại bài viết thành công", null);
-            }else if(bv == null)
+            }
+            else if (bv == null)
             {
                 dbContext.Remove(cd);
                 dbContext.SaveChanges();
@@ -107,11 +108,18 @@ namespace QLKhoaHoc_API.Services.Implements
                 dbContext.SaveChanges();
                 dbContext.Remove(cd);
                 dbContext.SaveChanges();
+                //if (lbv != null) { 
                 dbContext.Remove(lbv);
                 dbContext.SaveChanges();
                 return responseObject.ResponseSuccess("Xóa loại bài viết thành công", null);
             }
             return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Loại bài viết không tồn tại", null);
+        }
+
+        public IQueryable<DataResponse_LoaiBaiViet> GetAll()
+        {
+            var result = dbContext.LoaiBaiViets.Select(x => converter.EntityToDTO(x));
+            return result;
         }
     }
 }

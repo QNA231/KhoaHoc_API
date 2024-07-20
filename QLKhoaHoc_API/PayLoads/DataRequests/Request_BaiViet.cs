@@ -10,5 +10,6 @@ namespace QLKhoaHoc_API.PayLoads.DataRequests
         public string NoiDungNgan { get; set; }
         public string HinhAnh { get; set; }
         public int TaiKhoanId { get; set; }
+        public int chuDeId { get; set; }
     }
 }

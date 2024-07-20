@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QLKhoaHoc_API.Paginations;
 using QLKhoaHoc_API.PayLoads.DataRequests;
+using QLKhoaHoc_API.Services.Implements;
 using QLKhoaHoc_API.Services.Interfaces;
 using System.Data;
 
@@ -26,11 +27,17 @@ namespace QLKhoaHoc_API.Controllers
             return Ok(hocVienServices.GetDsHocVien(keyword, pagination));
         }
 
-        //[HttpPost("ThemHocVien")]
-        //public IActionResult ThemHocVien(Request_HocVien request)
-        //{
-        //    return Ok(hocVienServices.ThemHocVien(request));
-        //}
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            return Ok(hocVienServices.GetAll());
+        }
+
+        [HttpPost("ThemHocVien")]
+        public IActionResult ThemHocVien(Request_HocVien request)
+        {
+            return Ok(hocVienServices.ThemHocVien(request));
+        }
 
         [HttpPut("CapNhatThongTinHocVien")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -42,9 +49,9 @@ namespace QLKhoaHoc_API.Controllers
 
         [HttpDelete("XoaHocVien")]
         [Authorize(Roles = "Admin")]
-        public IActionResult XoaHocVien(int id)
+        public IActionResult XoaHocVien(int hvId)
         {
-            return Ok(hocVienServices.XoaHocVien(id));
+            return Ok(hocVienServices.XoaHocVien(hvId));
         }
     }
 }

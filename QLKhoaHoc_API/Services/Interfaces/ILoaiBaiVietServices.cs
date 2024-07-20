@@ -11,7 +11,8 @@ namespace QLKhoaHoc_API.Services.Interfaces
     {
         ResponseObject<DataResponse_LoaiBaiViet> ThemLoaiBaiViet(Request_LoaiBaiViet request);
         ResponseObject<DataResponse_LoaiBaiViet> SuaLoaiBaiViet(Request_LoaiBaiViet request, int id);
-        ResponseObject<DataResponse_LoaiBaiViet> XoaLoaiBaiViet(int id);
+        ResponseObject<DataResponse_LoaiBaiViet> XoaLoaiBaiViet(int  lbvId);
         PageResult<LoaiBaiViet> GetDsLoaiBaiViet(string? keyword, Pagination pagination);
+        IQueryable<DataResponse_LoaiBaiViet> GetAll();
     }
 }

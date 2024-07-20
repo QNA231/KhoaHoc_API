@@ -23,6 +23,12 @@ namespace QLKhoaHoc_API.Services.Implements
             this.converter = converter;
         }
 
+        public IQueryable<DataResponse_ChuDe> GetAll()
+        {
+            var result = dbContext.ChuDes.Select(x => converter.EntityToDTO(x));
+            return result;
+        }
+
         public PageResult<ChuDe> PhanTrangChuDe(string? keyword, Pagination pagination)
         {
             var lstCd = dbContext.ChuDes.Include(x => x.baiViets).AsQueryable();
@@ -49,7 +55,7 @@ namespace QLKhoaHoc_API.Services.Implements
             return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Chủ đề không tồn tại", null);
         }
 
-        public ResponseObject<DataResponse_ChuDe> ThemChuDe(Request_ChuDe request, int lbvId)
+        public ResponseObject<DataResponse_ChuDe> ThemChuDe(Request_ChuDe request)
         {
             if(dbContext.ChuDes.Any(x => x.TenChuDe == request.TenChuDe))
             {
@@ -58,7 +64,7 @@ namespace QLKhoaHoc_API.Services.Implements
             ChuDe cd = new ChuDe();
             cd.TenChuDe = request.TenChuDe;
             cd.NoiDung = request.NoiDung;
-            cd.LoaiBaiVietId = lbvId;
+            cd.LoaiBaiVietId = request.lbvId;
             dbContext.ChuDes.Add(cd);
             dbContext.SaveChanges();
             return responseObject.ResponseSuccess("Thêm chủ đề thành công", converter.EntityToDTO(cd));
@@ -70,7 +76,7 @@ namespace QLKhoaHoc_API.Services.Implements
             {
                 var cd = dbContext.ChuDes.Find(id);
                 var bv = dbContext.BaiViets.SingleOrDefault(x => x.ChuDeId == id);
-                if(bv != null)
+                if (bv != null)
                 {
                     dbContext.Remove(bv);
                     dbContext.SaveChanges();

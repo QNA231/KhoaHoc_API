@@ -9,5 +9,6 @@ namespace QLKhoaHoc_API.Services.Interfaces
         ResponseObject<DataResponse_LoaiKhoaHoc> ThemLoaiKhoaHoc(Request_ThemLoaiKhoaHoc request);
         ResponseObject<DataResponse_LoaiKhoaHoc> SuaLoaiKhoaHoc(Request_ThemLoaiKhoaHoc request1, int id);
         ResponseObject<DataResponse_LoaiKhoaHoc> XoaLoaiKhoaHoc(Request_XoaLoaiKhoaHoc request);
+        IQueryable<DataResponse_LoaiKhoaHoc> GetAll();
     }
 }

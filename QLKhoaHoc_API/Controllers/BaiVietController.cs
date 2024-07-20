@@ -25,25 +25,31 @@ namespace QLKhoaHoc_API.Controllers
             return Ok(baiVietServices.GetDsBaiViet(keyword, pagination));
         }
 
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            return Ok(baiVietServices.GetAll());
+        }
+
         [HttpPost("ThemBaiViet")]
         [Authorize(Roles = "Admin")]
-        public IActionResult ThemBaiViet(Request_BaiViet request, int cdId)
+        public IActionResult ThemBaiViet(Request_BaiViet request)
         {
-            return Ok(baiVietServices.ThemBaiViet(request, cdId));
+            return Ok(baiVietServices.ThemBaiViet(request));
         }
 
         [HttpPut("CapNhatBaiViet")]
         [Authorize(Roles = "Admin")]
-        public IActionResult SuaBaiViet(Request_BaiViet request, int id)
+        public IActionResult SuaBaiViet(Request_BaiViet request)
         {
-            return Ok(baiVietServices.SuaBaiViet(request, id));
+            return Ok(baiVietServices.SuaBaiViet(request));
         }
 
         [HttpDelete("XoaBaiViet")]
         [Authorize(Roles = "Admin")]
-        public IActionResult XoaBaiViet(int id)
+        public IActionResult XoaBaiViet(int tenId)
         {
-            return Ok(baiVietServices.XoaBaiViet(id));
+            return Ok(baiVietServices.XoaBaiViet(tenId));
         }
     }
 }

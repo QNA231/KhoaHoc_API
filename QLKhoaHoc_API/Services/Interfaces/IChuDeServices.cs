@@ -8,9 +8,10 @@ namespace QLKhoaHoc_API.Services.Interfaces
 {
     public interface IChuDeServices
     {
-        ResponseObject<DataResponse_ChuDe> ThemChuDe(Request_ChuDe request, int lbvId);
+        ResponseObject<DataResponse_ChuDe> ThemChuDe(Request_ChuDe request);
         ResponseObject<DataResponse_ChuDe> SuaChuDe(Request_ChuDe request, int id);
         ResponseObject<DataResponse_ChuDe> XoaChuDe(int id);
         PageResult<ChuDe> PhanTrangChuDe(string? keyword, Pagination pagination);
+        IQueryable<DataResponse_ChuDe> GetAll();
     }
 }

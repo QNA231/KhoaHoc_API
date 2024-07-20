@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLKhoaHoc_API", "QLKhoaHoc_API\QLKhoaHoc_API.csproj", "{12F8CA50-6D4D-4D7E-A772-ACE47CCE450F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QLKhoaHoc_API", "QLKhoaHoc_API\QLKhoaHoc_API.csproj", "{12F8CA50-6D4D-4D7E-A772-ACE47CCE450F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLKhoaHoc_Form", "QLKhoaHoc_Form\QLKhoaHoc_Form.csproj", "{8A546EE6-A5A3-4B8B-A0AF-D8BE1C6FB774}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{12F8CA50-6D4D-4D7E-A772-ACE47CCE450F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12F8CA50-6D4D-4D7E-A772-ACE47CCE450F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12F8CA50-6D4D-4D7E-A772-ACE47CCE450F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A546EE6-A5A3-4B8B-A0AF-D8BE1C6FB774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A546EE6-A5A3-4B8B-A0AF-D8BE1C6FB774}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A546EE6-A5A3-4B8B-A0AF-D8BE1C6FB774}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A546EE6-A5A3-4B8B-A0AF-D8BE1C6FB774}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

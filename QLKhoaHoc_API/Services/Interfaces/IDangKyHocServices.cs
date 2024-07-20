@@ -12,5 +12,6 @@ namespace QLKhoaHoc_API.Services.Interfaces
         ResponseObject<DataResponse_DangKyHoc> SuaDangKy(Request_DangKyHoc request, Request_HocVien request1, int id);
         ResponseObject<DataResponse_DangKyHoc> XoaDangKy(int id);
         PageResult<DangKyHoc> PhanTrangDangKy(Pagination pagination);
+        IQueryable<DataResponse_DangKyHoc> GetAll();
     }
 }

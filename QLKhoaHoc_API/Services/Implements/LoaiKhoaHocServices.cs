@@ -79,28 +79,36 @@ namespace QLKhoaHoc_API.Services.Implements
 
         public ResponseObject<DataResponse_LoaiKhoaHoc> XoaLoaiKhoaHoc(Request_XoaLoaiKhoaHoc request)
         {
-            if(dbContext.LoaiKhoaHocs.Any(x => x.Id == request.Id))
+            var lkh = dbContext.LoaiKhoaHocs.SingleOrDefault(x => x.Id == request.Id);
+            if (dbContext.LoaiKhoaHocs.Any(x => x.Id == request.Id))
             {
-                if(dbContext.KhoaHocs.Any(x => x.LoaiKhoaHocId == request.Id))
+                if (dbContext.KhoaHocs.Any(x => x.LoaiKhoaHocId == request.Id))
                 {
                     var kh = dbContext.KhoaHocs.Find(request.Id);
                     dbContext.Remove(kh);
                     dbContext.SaveChanges();
 
-                    var lkh = dbContext.LoaiKhoaHocs.Find(request.Id);
+                    var tenloai = dbContext.LoaiKhoaHocs.Find(request.Id);
                     dbContext.Remove(lkh);
                     dbContext.SaveChanges();
                     return responseObject.ResponseSuccess("Xóa khóa học thành công", null);
                 }
                 else
                 {
-                    var lkh = dbContext.LoaiKhoaHocs.Find(request.Id);
+                    var tenloai = dbContext.LoaiKhoaHocs.Find(request.Id);
+                    //if(lkh != null) { 
                     dbContext.Remove(lkh);
                     dbContext.SaveChanges();
                     return responseObject.ResponseSuccess("Xóa khóa học thành công", null);
                 }
             }
             return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Khóa học không tồn tại", null);
+        }
+
+        public IQueryable<DataResponse_LoaiKhoaHoc> GetAll()
+        {
+            var result = dbContext.LoaiKhoaHocs.Select(x => converter.EntityToDTO(x));
+            return result;
         }
     }
 }

@@ -9,10 +9,11 @@ namespace QLKhoaHoc_API.Services.Interfaces
 {
     public interface IKhoaHocServices
     {
-        ResponseObject<DataResponse_KhoaHoc> ThemKhoaHoc(Request_KhoaHoc request, int lkhId);
+        ResponseObject<DataResponse_KhoaHoc> ThemKhoaHoc(Request_KhoaHoc request);
         ResponseObject<DataResponse_KhoaHoc> SuaKhoaHoc(Request_KhoaHoc request, int khId);
         ResponseObject<DataResponse_KhoaHoc> XoaKhoaHoc(int khId);
         ResponseObject<DataResponse_KhoaHoc> HienThiDanhSachKhoaHoc();
         PageResult<KhoaHoc> PhanTrangKhoaHoc(string? keyword, Pagination pagination);
+        IQueryable<DataResponse_KhoaHoc> GetAll();
     }
 }

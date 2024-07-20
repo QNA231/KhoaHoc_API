@@ -12,5 +12,6 @@ namespace QLKhoaHoc_API.Services.Interfaces
         ResponseObject<DataResponse_HocVien> XoaHocVien(int hvId);
         ResponseObject<DataResponse_HocVien> SuaHocVien(Request_HocVien request, int id);
         PageResult<HocVien> GetDsHocVien(string? keyword, Pagination pagination);
+        IQueryable<DataResponse_HocVien> GetAll();
     }
 }

@@ -126,5 +126,11 @@ namespace QLKhoaHoc_API.Services.Implements
             }
             return responseObject.ResponseError(StatusCodes.Status400BadRequest, "Đăng ký học không tồn tại", null);
         }
+
+        public IQueryable<DataResponse_DangKyHoc> GetAll()
+        {
+            var result = dbContext.DangKyHocs.Select(x => converter.EntityToDTO(x));
+            return result;
+        }
     }
 }

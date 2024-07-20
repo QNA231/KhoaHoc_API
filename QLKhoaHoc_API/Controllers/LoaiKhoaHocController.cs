@@ -17,6 +17,12 @@ namespace QLKhoaHoc_API.Controllers
             _loaiKhoaHocServices = loaiKhoaHocServices;
         }
 
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            return Ok(_loaiKhoaHocServices.GetAll());
+        }
+
         [HttpPost("ThemLoaiKhoaHoc")]
         [Authorize(Roles = "Admin")]
         public IActionResult ThemLoaiKhoaHoc(Request_ThemLoaiKhoaHoc request)
@@ -31,7 +37,7 @@ namespace QLKhoaHoc_API.Controllers
         }
         [HttpDelete("XoaLoaiKhoaHoc")]
         [Authorize(Roles = "Admin")]
-        public IActionResult XoaLoaiKhoaHoc([FromQuery]Request_XoaLoaiKhoaHoc request)
+        public IActionResult XoaLoaiKhoaHoc(Request_XoaLoaiKhoaHoc request)
         {
             return Ok(_loaiKhoaHocServices.XoaLoaiKhoaHoc(request));
         }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using QLKhoaHoc_API.PayLoads.DataRequests;
 using QLKhoaHoc_API.Services.Interfaces;
 
@@ -34,6 +35,7 @@ namespace QLKhoaHoc_API.Controllers
         [HttpPost("DangNhap")]
         public IActionResult Login(Request_Login request)
         {
+            //return View("index.cshtml");
             return Ok(taiKhoanServices.Login(request));
         }
 
