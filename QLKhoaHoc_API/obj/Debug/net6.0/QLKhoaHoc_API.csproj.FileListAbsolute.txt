@@ -85,5 +85,3 @@ D:\C#\Test C# API\QLKhoaHoc_API\QLKhoaHoc_API\bin\Debug\net6.0\Microsoft.AspNetC
 D:\C#\Test C# API\QLKhoaHoc_API\QLKhoaHoc_API\bin\Debug\net6.0\Scrutor.dll
 D:\C#\Test C# API\QLKhoaHoc_API\QLKhoaHoc_API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
 D:\C#\Test C# API\QLKhoaHoc_API\QLKhoaHoc_API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
-D:\C#\Test C# API\QLKhoaHoc_API\QLKhoaHoc_API\obj\Debug\net6.0\QLKhoaHoc_API.RazorAssemblyInfo.cache
-D:\C#\Test C# API\QLKhoaHoc_API\QLKhoaHoc_API\obj\Debug\net6.0\QLKhoaHoc_API.RazorAssemblyInfo.cs
